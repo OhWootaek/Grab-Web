@@ -1,7 +1,7 @@
-package Oh.Grab_Web.domain.meeting;
+package oh.grab_web.domain.meeting;
 
-import Oh.Grab_Web.domain.BaseTimeEntity;
-import Oh.Grab_Web.domain.user.User;
+import oh.grab_web.domain.BaseTimeEntity;
+import oh.grab_web.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;

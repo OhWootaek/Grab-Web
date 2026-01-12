@@ -1,6 +1,6 @@
-package Oh.Grab_Web.domain.user;
+package oh.grab_web.domain.user;
 
-import Oh.Grab_Web.domain.BaseTimeEntity;
+import oh.grab_web.domain.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;

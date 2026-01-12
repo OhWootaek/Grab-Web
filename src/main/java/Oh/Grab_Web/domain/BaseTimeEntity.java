@@ -1,4 +1,4 @@
-package Oh.Grab_Web.domain;
+package oh.grab_web.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

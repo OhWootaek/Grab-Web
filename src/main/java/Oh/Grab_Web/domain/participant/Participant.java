@@ -1,7 +1,7 @@
-package Oh.Grab_Web.domain.participant;
+package oh.grab_web.domain.participant;
 
-import Oh.Grab_Web.domain.meeting.Meeting;
-import Oh.Grab_Web.domain.user.User;
+import oh.grab_web.domain.meeting.Meeting;
+import oh.grab_web.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;

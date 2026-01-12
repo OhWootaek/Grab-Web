@@ -1,4 +1,4 @@
-package Oh.Grab_Web;
+package oh.grab_web;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,4 +1,4 @@
-package Oh.Grab_Web.domain.meeting;
+package oh.grab_web.domain.meeting;
 
 /**
  * 미팅의 진행 상태를 관리하는 Enum
