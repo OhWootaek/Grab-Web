@@ -1,10 +1,10 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '4.0.1'
+	id 'org.springframework.boot' version '3.4.1'
 	id 'io.spring.dependency-management' version '1.1.7'
 }
 
-group = 'Oh'
+group = 'oh'
 version = '0.0.1-SNAPSHOT'
 description = 'Web version of Grab'
 
@@ -22,36 +22,53 @@ dependencies {
 	// 1. Web & View (화면 및 API)
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	implementation 'org.springframework.boot:spring-boot-starter-validation' // 데이터 검증 (@NotNull 등)
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
 	// 2. Security & Auth (로그인)
 	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client' // 구글 로그인
-	implementation 'org.springframework.boot:spring-boot-starter-security-oauth2-client'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
 	// 3. Database & ORM (데이터 처리)
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.projectlombok:lombok'
 
-	// DB Drivers (환경별 분리)
-	implementation 'com.h2database:h2' // 개발용 (In-memory)
-	implementation 'com.mysql:mysql-connector-j' // 배포용 (Production)
+	// DB Drivers
+	// H2는 개발용(Console 접근 등)이라 implementation 유지, MySQL은 실행 시에만 필요하므로 runtimeOnly 권장
+	implementation 'com.h2database:h2'
+	runtimeOnly 'com.mysql:mysql-connector-j'
 
 	// 4. Utils (편의 기능)
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
-	// 5. Test (테스트)
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.security:spring-security-test'
-
-	// 6. QueryDSL (선택 사항 - 복잡한 조회 쿼리용, Spring Boot 3.0 이상)
+	// 5. QueryDSL (Spring Boot 3.x + Jakarta)
 	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
 	annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
 	annotationProcessor "jakarta.annotation:jakarta.annotation-api"
 	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+
+	// 6. Test (테스트)
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+	// lombok은 테스트 코드에서도 필요할 수 있음
+	testAnnotationProcessor 'org.projectlombok:lombok'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+// QueryDSL QClass 생성 위치 제어 (선택 사항이지만 인텔리제이 인식 오류 방지용)
+def querydslDir = "$buildDir/generated/querydsl"
+
+tasks.withType(JavaCompile) {
+	options.getGeneratedSourceOutputDirectory().set(file(querydslDir))
+}
+
+sourceSets {
+	main.java.srcDirs += [ querydslDir ]
+}
+
+clean {
+	delete file(querydslDir)
 }
