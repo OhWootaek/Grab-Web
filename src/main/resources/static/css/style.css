@@ -1,0 +1,89 @@
+/* 그리드 컨테이너 */
+.time-grid-wrapper {
+    overflow-x: auto; /* 모바일 가로 스크롤 */
+    padding-bottom: 10px;
+    user-select: none; /* 드래그 시 텍스트 선택 방지 */
+}
+
+/* 실제 그리드 (JS에서 grid-template-columns 설정) */
+#time-grid {
+    display: grid;
+    gap: 4px;
+    min-width: 600px; /* 최소 너비 확보 */
+}
+
+/* 각 시간 셀 */
+.time-slot {
+    height: 40px;
+    background-color: #f1f3f5;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    position: relative;
+}
+
+/* 날짜/시간 헤더 */
+.grid-header {
+    text-align: center;
+    font-weight: bold;
+    color: #495057;
+    padding-bottom: 5px;
+}
+.grid-time-label {
+    text-align: right;
+    padding-right: 10px;
+    font-size: 0.85rem;
+    color: #868e96;
+    align-self: center;
+}
+
+/* --- 상태별 색상 --- */
+
+/* 내가 선택한 시간 (드래그 중) */
+.time-slot.selected {
+    border: 2px solid #228be6; /* 파란 테두리 */
+}
+
+/* 히트맵 레벨 (0~5단계) */
+.time-slot.level-0 { background-color: #f1f3f5; }
+.time-slot.level-1 { background-color: #dbe4ff; } /* 연한 파랑 */
+.time-slot.level-2 { background-color: #bac8ff; }
+.time-slot.level-3 { background-color: #91a7ff; }
+.time-slot.level-4 { background-color: #748ffc; }
+.time-slot.level-5 { background-color: #5c7cfa; color: white; } /* 진한 파랑 */
+
+/* 내 선택 표시 (히트맵 위에 덧씌우기) */
+.time-slot.my-pick::after {
+    content: '✔';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #228be6;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.time-slot.level-4.my-pick::after,
+.time-slot.level-5.my-pick::after {
+    color: white; /* 어두운 배경에서는 흰색 체크 */
+}
+
+/* 범례 박스 */
+.legend-box {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    border: 1px solid #dee2e6;
+}
+.legend-box.my-pick {
+    border: 2px solid #228be6;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.legend-box.my-pick::after {
+    content: '✔';
+    color: #228be6;
+    font-size: 0.8rem;
+}

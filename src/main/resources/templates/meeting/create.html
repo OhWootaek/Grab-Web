@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>새 일정 만들기</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-5">
+                    <h3 class="fw-bold mb-4 text-center">📅 새 모임 만들기</h3>
+
+                    <form action="/meetings" method="post">
+                        <!-- 제목 -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">모임 제목</label>
+                            <input type="text" name="title" class="form-control" placeholder="예: 졸업 프로젝트 회의" required>
+                        </div>
+
+                        <!-- 날짜 범위 -->
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label class="form-label fw-bold">시작 날짜</label>
+                                <input type="date" name="startDate" class="form-control" required id="startDate">
+                            </div>
+                            <div class="col">
+                                <label class="form-label fw-bold">종료 날짜</label>
+                                <input type="date" name="endDate" class="form-control" required id="endDate">
+                            </div>
+                        </div>
+
+                        <!-- 시간 범위 -->
+                        <div class="row mb-4">
+                            <div class="col">
+                                <label class="form-label fw-bold">시작 시간</label>
+                                <select name="startTime" class="form-select">
+                                    <option value="09:00">09:00</option>
+                                    <option value="10:00">10:00</option>
+                                    <option value="12:00">12:00</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label class="form-label fw-bold">종료 시간</label>
+                                <select name="endTime" class="form-select">
+                                    <option value="18:00">18:00</option>
+                                    <option value="20:00">20:00</option>
+                                    <option value="22:00">22:00</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">일정 생성하기</button>
+                            <a href="/static" class="btn btn-light">취소</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 날짜 기본값 설정 (오늘 ~ 3일 뒤)
+    document.getElementById('startDate').valueAsDate = new Date();
+    const threeDaysLater = new Date();
+    threeDaysLater.setDate(threeDaysLater.getDate() + 3);
+    document.getElementById('endDate').valueAsDate = threeDaysLater;
+</script>
+
+</body>
+</html>

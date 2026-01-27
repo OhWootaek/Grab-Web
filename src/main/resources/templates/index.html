@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Grab : 일정 조율</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .hero-section { background-color: #f8f9fa; padding: 100px 0; text-align: center; }
+    </style>
+</head>
+<body>
+
+<!-- 네비게이션 바 -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+    <div class="container">
+        <a class="navbar-brand fw-bold text-primary" href="/static">Grab Web</a>
+        <div class="d-flex">
+            <!-- 로그인 안 했을 때 -->
+            <a sec:authorize="isAnonymous()" href="/oauth2/authorization/google" class="btn btn-outline-primary btn-sm">Google 로그인</a>
+            <!-- 로그인 했을 때 -->
+            <div sec:authorize="isAuthenticated()" class="d-flex align-items-center gap-2">
+                <span class="fw-bold" th:text="${userName}">User</span>님
+                <form action="/logout" method="post">
+                    <button type="submit" class="btn btn-link text-secondary text-decoration-none btn-sm">로그아웃</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- 메인 컨텐츠 -->
+<div class="hero-section">
+    <div class="container">
+        <h1 class="display-4 fw-bold mb-4">팀 모임 시간을 <span class="text-primary">가장 빠르게</span></h1>
+        <p class="lead text-muted mb-5">복잡한 일정 조율, 링크 하나로 끝내세요.<br>모두가 가능한 최적의 시간을 히트맵으로 찾아드립니다.</p>
+
+        <div sec:authorize="isAnonymous()">
+            <a href="/oauth2/authorization/google" class="btn btn-primary btn-lg px-5 shadow-sm">
+                <i class="bi bi-google"></i> 구글로 시작하기
+            </a>
+        </div>
+
+        <div sec:authorize="isAuthenticated()">
+            <a href="/meetings/new" class="btn btn-primary btn-lg px-5 shadow-sm">새 일정 만들기</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
