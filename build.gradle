@@ -30,7 +30,6 @@ dependencies {
 
 	// 3. Database & ORM (데이터 처리)
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.projectlombok:lombok'
 
 	// DB Drivers
 	// H2는 개발용(Console 접근 등)이라 implementation 유지, MySQL은 실행 시에만 필요하므로 runtimeOnly 권장
